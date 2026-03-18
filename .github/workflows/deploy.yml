@@ -41,6 +41,7 @@ jobs:
     if:  github.ref == 'refs/heads/master'
     steps:
       - uses: actions/checkout@v3
+      - uses: databricks/setup-cli@main
       - name: Deploy Bundle dv
         run: databricks bundle deploy -t dv
 
@@ -53,6 +54,7 @@ jobs:
     if:  github.ref == 'refs/heads/master'
     steps:
       - uses: actions/checkout@v3
+      - uses: databricks/setup-cli@main
       - name: Deploy Bundle staging
         run: databricks bundle deploy -t staging
         
@@ -65,5 +67,6 @@ jobs:
     if:  github.ref == 'refs/heads/master'
     steps:
       - uses: actions/checkout@v3
+      - uses: databricks/setup-cli@main
       - name: Deploy Bundle prod
         run: databricks bundle deploy -t prod
