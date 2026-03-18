@@ -3,7 +3,6 @@ bundle:
 
 targets:
   dv:
-    mode: development
     workspace:
       file_path: /Workspace/Shared/
       host: https://dbc-bc909f8e-ee32.cloud.databricks.com
