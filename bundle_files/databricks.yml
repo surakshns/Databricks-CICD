@@ -3,10 +3,10 @@ bundle:
 
 sync:
   paths:
-
+    - .
   exclude:
-    databricks.yml
-    .github/
+    - databricks.yml
+    - .github/
 
 targets:
   dv:
