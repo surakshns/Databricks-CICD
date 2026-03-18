@@ -8,6 +8,8 @@ sync:
     - databricks.yml
     - .github/
 
+variable:
+  default: dv
   targets:
     dv:
       default: true
