@@ -33,6 +33,7 @@ jobs:
         run: databricks bundle validate -t dv
         
   dv-deploy:
+    needs: dv-ci-validate
     runs-on: ubuntu-latest
     env:
       DATABRICKS_HOST: https://dbc-bc909f8e-ee32.cloud.databricks.com
@@ -44,6 +45,7 @@ jobs:
         run: databricks bundle deploy -t dv
 
   staging-deploy:
+    needs: dv-deploy
     runs-on: ubuntu-latest
     env:
       DATABRICKS_HOST: https://dbc-bc909f8e-ee32.cloud.databricks.com
@@ -55,6 +57,7 @@ jobs:
         run: databricks bundle deploy -t staging
         
   prod-deploy:
+    needs: staging-deploy
     runs-on: ubuntu-latest
     env:
       DATABRICKS_HOST: https://dbc-bc909f8e-ee32.cloud.databricks.com
@@ -63,4 +66,4 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Deploy Bundle prod
-        run: databricks bundle deploy -t staging
+        run: databricks bundle deploy -t prod
