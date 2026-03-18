@@ -1,25 +1,33 @@
-# ...existing code...
-name: Databricks CI/CD
+name: Databricks Bundle Deploy
 
 on:
   push:
-    branches: [ main, master, release ]
-  pull_request:
-
-defaults:
-  run:
-    working-directory: ./bundle_files/
+    branches:
+      - main
 
 jobs:
-  staging:
-    name: Validate in dev
-    environment: dv
+  deploy:
     runs-on: ubuntu-latest
+
     steps:
-      - uses: actions/checkout@v4
-      - uses: databricks/setup-cli@v0.295.0
+      - name: Checkout code
+        uses: actions/checkout@v3
         with:
-          ref: ${{github.event.pull_request.head.sha || github.sha }}
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+
+      - name: Setup Databricks CLI
+        uses: databricks/setup-cli@main
+
+      - name: Validate Bundle
         env:
-          DATABRICKS_TOKEN: ${{secrets.DATABRICKS_TOKEN}}
-      - run: databricks bundle validate -t dv
+          DATABRICKS_HOST: https://dbc-bc909f8e-ee32.cloud.databricks.com
+          DATABRICKS_TOKEN: ${{ secrets.DATABRICKS_TOKEN }}
+        run: |
+          databricks bundle validate -t dv
+
+      - name: Deploy Bundle
+        env:
+          DATABRICKS_HOST: https://dbc-bc909f8e-ee32.cloud.databricks.com
+          DATABRICKS_TOKEN: ${{ secrets.DATABRICKS_TOKEN }}
+        run: |
+          databricks bundle deploy -t dv
