@@ -1,22 +1,17 @@
 bundle:
   name: databricks-workspace
 
-sync:
-  paths:
-    - .
-  exclude:
-    - databricks.yml
-    - .github/
+variables:           # ✅ Fix 1: use "variables" not "variable"
+  env:
+    default: dev
 
-variables:
-  default: dv
-  targets:
-    dv:
-      default: true
-      workspace:
-        host: https://dbc-bc909f8e-ee32.cloud.databricks.com
-        file_path: /workspace/shared/Devops_test
-      variables:
-        target_env: dv
+targets:
+  default:
+    mode: development
 
-      
+  dv:                # ✅ Fix 2: Add the "dv" target
+    mode: development
+    workspace:
+      host: https://dbc-bc909f8e-ee32.cloud.databricks.com
+    variables:
+      env: dv
