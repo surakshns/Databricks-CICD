@@ -6,7 +6,7 @@ targets:
     mode: development
     workspace:
       host: https://dbc-bc909f8e-ee32.cloud.databricks.com
-      root_path: ~/.bundle/${bundle.name}/${bundle.target}   # personal dev path
+      root_path: ~/Shared/staging/${bundle.name}   # personal dev path
 
   staging:
     workspace:
