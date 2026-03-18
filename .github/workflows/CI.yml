@@ -6,6 +6,9 @@ on:
     branches: [ main, master, release ]
   pull_request:
 
+defaults:
+  run:
+    working-directory: ./bundle_files/
 
 jobs:
   staging:
