@@ -1,17 +1,8 @@
 bundle:
   name: databricks-workspace
 
-variables:           # ✅ Fix 1: use "variables" not "variable"
-  env:
-    default: dev
-
 targets:
-  default:
-    mode: development
-
-  dv:                # ✅ Fix 2: Add the "dv" target
+  dv:
     mode: development
     workspace:
       host: https://dbc-bc909f8e-ee32.cloud.databricks.com
-    variables:
-      env: dv
