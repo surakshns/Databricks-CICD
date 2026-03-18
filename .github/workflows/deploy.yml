@@ -4,13 +4,17 @@ on:
   push:
     branches:
       - master
+      
+  pull_request:
+    branches: 
+      - master
 
 defaults:
   run:
     working-directory: ./bundle_files/
 
 jobs:
-  deploy:
+  dv-ci-validate:
     runs-on: ubuntu-latest
     env:
       DATABRICKS_HOST: https://dbc-bc909f8e-ee32.cloud.databricks.com
@@ -27,6 +31,36 @@ jobs:
 
       - name: Validate Bundle
         run: databricks bundle validate -t dv
-
-      - name: Deploy Bundle
+        
+  dv-deploy:
+    runs-on: ubuntu-latest
+    env:
+      DATABRICKS_HOST: https://dbc-bc909f8e-ee32.cloud.databricks.com
+      DATABRICKS_TOKEN: ${{ secrets.DATABRICKS_TOKEN }}   
+    if:  github.ref == 'refs/heads/master'
+    steps:
+      - uses: actions/checkout@v3
+      - name: Deploy Bundle dv
         run: databricks bundle deploy -t dv
+
+  staging-deploy:
+    runs-on: ubuntu-latest
+    env:
+      DATABRICKS_HOST: https://dbc-bc909f8e-ee32.cloud.databricks.com
+      DATABRICKS_TOKEN: ${{ secrets.DATABRICKS_TOKEN }}   
+    if:  github.ref == 'refs/heads/master'
+    steps:
+      - uses: actions/checkout@v3
+      - name: Deploy Bundle staging
+        run: databricks bundle deploy -t staging
+        
+  prod-deploy:
+    runs-on: ubuntu-latest
+    env:
+      DATABRICKS_HOST: https://dbc-bc909f8e-ee32.cloud.databricks.com
+      DATABRICKS_TOKEN: ${{ secrets.DATABRICKS_TOKEN }}   
+    if:  github.ref == 'refs/heads/master'
+    steps:
+      - uses: actions/checkout@v3
+      - name: Deploy Bundle prod
+        run: databricks bundle deploy -t staging
