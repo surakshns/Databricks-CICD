@@ -23,14 +23,14 @@ jobs:
 
       - name: Validate Bundle
         env:
-          DATABRICKS_HOST: https://dbc-bc909f8e-ee32.cloud.databricks.com
+          DATABRICKS_HOST: ${{ secrets.DATABRICKS_HOST }}
           DATABRICKS_TOKEN: ${{ secrets.DATABRICKS_TOKEN }}
         run: |
           databricks bundle validate -t dv
 
       - name: Deploy Bundle
         env:
-          DATABRICKS_HOST: https://dbc-bc909f8e-ee32.cloud.databricks.com
+          DATABRICKS_HOST: ${{ secrets.DATABRICKS_HOST }}
           DATABRICKS_TOKEN: ${{ secrets.DATABRICKS_TOKEN }}
         run: |
           databricks bundle deploy -t dv
