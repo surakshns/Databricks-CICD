@@ -4,6 +4,9 @@ on:
   push:
     branches:
       - master
+defaults:
+  run:
+    working-directory: ./bundle_files/
 
 jobs:
   deploy:
