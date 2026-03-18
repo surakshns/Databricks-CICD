@@ -6,6 +6,9 @@ on:
     branches: [ main, master, release ]
   pull_request:
 
+env: |
+DATABRICKS_TOKEN: ${{secrets.DATABRICKS_TOKEN}}
+
 jobs:
   staging:
     name: Validate in dev
@@ -16,4 +19,4 @@ jobs:
       - uses: databricks/setup-cli@v0.295.0
         with:
           ref: ${{github.event.pull_request.head.sha || github.sha }}
-          
+      - run: databricks bundle validate -t dv
