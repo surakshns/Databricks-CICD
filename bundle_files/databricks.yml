@@ -8,13 +8,13 @@ sync:
     - databricks.yml
     - .github/
 
-targets:
-  dv:
-    default: true
-    workspace:
-      host: https://dbc-bc909f8e-ee32.cloud.databricks.com
-      file_path: /workspace/shared/Devops_test
-    variables:
-      target_env: dv
+  targets:
+    dv:
+      default: true
+      workspace:
+        host: https://dbc-bc909f8e-ee32.cloud.databricks.com
+        file_path: /workspace/shared/Devops_test
+      variables:
+        target_env: dv
 
       
