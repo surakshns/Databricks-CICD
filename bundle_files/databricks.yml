@@ -4,19 +4,16 @@ bundle:
 targets:
   dv:
     workspace:
-      file_path: /Workspace/Shared/
       host: https://dbc-bc909f8e-ee32.cloud.databricks.com
-      root_path: /dv/${bundle.name}   # personal dev path
+      root_path: /Workspace/Shared/dv/${bundle.name}   # personal dev path
 
   staging:
     workspace:
-      file_path: /Workspace/Shared/
       host: https://dbc-bc909f8e-ee32.cloud.databricks.com
-      root_path: /staging/${bundle.name}              # shared staging path
+      root_path: /Workspace/Shared/staging/${bundle.name}              # shared staging path
 
   prod:
     mode: production
     workspace:
-      file_path: /Workspace/Shared/
       host: https://dbc-bc909f8e-ee32.cloud.databricks.com
-      root_path: /prod/${bundle.name}                 # shared prod path
+      root_path: /Workspace/Shared/prod/${bundle.name}                 # shared prod path
