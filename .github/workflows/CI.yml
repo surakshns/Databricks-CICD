@@ -7,38 +7,13 @@ on:
   pull_request:
 
 jobs:
-  test:
+  staging:
+    name: Validate in dev
+    environment: dv
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-python@v4
+      - uses: databricks/setup-cli@v0.295.0
         with:
-          python-version: '3.9'
-
-  deploy:
-    needs: test
-    runs-on: ubuntu-latest
-    if: ${{ github.ref == 'refs/heads/master' }}
-    steps:
-      - uses: actions/checkout@v4
-
-      - name: Setup Python
-        uses: actions/setup-python@v4
-        with:
-          python-version: '3.9'
-
-      - name: Install databricks CLI
-        run: pip install databricks-cli
-
-      - name: Upload workspace (notebooks & workflows)
-        env:
-          DATABRICKS_HOST: ${{ secrets.DATABRICKS_HOST }}
-          DATABRICKS_TOKEN: ${{ secrets.DATABRICKS_TOKEN }}
-        run: |
-          # adjust paths as needed
-          if [ -d "./notebooks" ]; then
-            databricks workspace import_dir ./notebooks /Repos/${{ github.repository }}/notebooks --overwrite --language PYTHON
-          fi
-          if [ -f "./workspace.json" ]; then
-            databricks workspace import ./workspace.json /Workspace/workspace.json --overwrite
-          fi
+          ref: ${{github.event.pull_request.head.sha || github.sha }}
+          
