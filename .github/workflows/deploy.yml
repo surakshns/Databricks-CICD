@@ -14,7 +14,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       DATABRICKS_HOST: https://dbc-bc909f8e-ee32.cloud.databricks.com
-      DATABRICKS_TOKEN: ${{ secrets.DATABRICKS_TOKEN }}   # 👈 set at job level
+      DATABRICKS_TOKEN: ${{ secrets.DATABRICKS_TOKEN }}   # 👈 set at job leve
 
     steps:
       - name: Checkout code
