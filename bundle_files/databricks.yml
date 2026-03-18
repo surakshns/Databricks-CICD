@@ -1,25 +1,20 @@
 bundle:
   name: databricks-workspace
 
-variables:
-  env:
-    default: dv
-
 targets:
   dv:
     mode: development
     workspace:
       host: https://dbc-bc909f8e-ee32.cloud.databricks.com
-      root_path: /Shared/dv/${bundle.name}     # 👈 /Shared/dv/databricks-workspace
+      root_path: ~/.bundle/${bundle.name}/${bundle.target}   # personal dev path
 
   staging:
-    mode: development
     workspace:
       host: https://dbc-bc909f8e-ee32.cloud.databricks.com
-      root_path: /Shared/staging/${bundle.name}
+      root_path: /Shared/staging/${bundle.name}              # shared staging path
 
   prod:
     mode: production
     workspace:
       host: https://dbc-bc909f8e-ee32.cloud.databricks.com
-      root_path: /Shared/prod/${bundle.name}
+      root_path: /Shared/prod/${bundle.name}                 # shared prod path
