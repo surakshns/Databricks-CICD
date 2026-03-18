@@ -3,11 +3,14 @@ name: Databricks Bundle Deploy
 on:
   push:
     branches:
-      - master
+      - main
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    env:
+      DATABRICKS_HOST: https://dbc-bc909f8e-ee32.cloud.databricks.com
+      DATABRICKS_TOKEN: ${{ secrets.DATABRICKS_TOKEN }}   # 👈 set at job level
 
     steps:
       - name: Checkout code
@@ -19,17 +22,7 @@ jobs:
         uses: databricks/setup-cli@main
 
       - name: Validate Bundle
-        uses: databricks/run-notebook@v0        # 👈 official Databricks action
-        with:
-          databricks-host: https://dbc-bc909f8e-ee32.cloud.databricks.com
-          databricks-token: ${{ secrets.DATABRICKS_TOKEN }}
-          run-command: |
-            databricks bundle validate -t dv
+        run: databricks bundle validate -t dv
 
       - name: Deploy Bundle
-        uses: databricks/run-notebook@v0
-        with:
-          databricks-host: https://dbc-bc909f8e-ee32.cloud.databricks.com
-          databricks-token: ${{ secrets.DATABRICKS_TOKEN }}
-          run-command: |
-            databricks bundle deploy -t dv
+        run: databricks bundle deploy -t dv
